@@ -20,8 +20,6 @@ public static class StartupExtensions
 {
     public static IServiceCollection AddSharedServices(this IServiceCollection services, SharedServiceOptions? options = null)
     {
-        AWSSDKHandler.RegisterXRayForAllServices();
-        
         var postfix = Environment.GetEnvironmentVariable("STACK_POSTFIX");
         
         if (options is null)
@@ -30,7 +28,7 @@ public static class StartupExtensions
         }
 
         services.AddSingleton<IStockPriceFeatures, StockPriceFeatures>();
-
+     
         if (!options.SkipAppConfiguration)
         {
             services.AddApplicationConfiguration(postfix);
@@ -62,7 +60,7 @@ public static class StartupExtensions
             TableName = $"{config["TABLE_NAME"]}{postfix}",
         };
 
-        services.AddSharedInfrastructure(config);
+        services.AddFeatureFlags(config);
         services.AddSingleton(Options.Create(infrastructureSettings));
         services.AddSingleton<IConfiguration>(config);
 
@@ -71,14 +69,7 @@ public static class StartupExtensions
     
     private static IServiceCollection AddAwsSdks(this IServiceCollection services, string postfix)
     {
-        AWSSDKHandler.RegisterXRayForAllServices();
-
         var dynamoDbClient = new AmazonDynamoDBClient();
-
-        var primingTasks = new List<Task>();
-        primingTasks.Add(dynamoDbClient.DescribeTableAsync($"{Environment.GetEnvironmentVariable("TABLE_NAME")}{postfix}"));
-
-        Task.WaitAll(primingTasks.ToArray());
 
         services.AddSingleton(dynamoDbClient);
 

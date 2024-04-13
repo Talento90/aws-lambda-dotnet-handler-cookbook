@@ -34,11 +34,12 @@ public class SetStockPriceTests
         var testRequest = new SetStockPriceRequest()
         {
             NewPrice = 100,
-            StockSymbol = "AMZ"
+            StockSymbol = "AMZ",
+            Currency = "GBP"
         };
 
         // Act
-        var result = await setStockPriceEndpoint.SetStockPrice(testRequest, A.Fake<ILambdaContext>());
+        var result = await setStockPriceEndpoint.SetStockPrice(testRequest);
         
         // Assert
         result.StatusCode.Should().Be(200);
@@ -74,11 +75,12 @@ public class SetStockPriceTests
         var testRequest = new SetStockPriceRequest()
         {
             NewPrice = 100,
-            StockSymbol = "AMZ"
+            StockSymbol = "AMZ",
+            Currency = "GBP"
         };
 
         // Act
-        var result = await setStockPriceEndpoint.SetStockPrice(testRequest, A.Fake<ILambdaContext>());
+        var result = await setStockPriceEndpoint.SetStockPrice(testRequest);
         
         // Assert
         result.StatusCode.Should().Be(200);
@@ -96,7 +98,8 @@ public class SetStockPriceTests
         var testRequest = new SetStockPriceRequest()
         {
             NewPrice = 100,
-            StockSymbol = "AMZ"
+            StockSymbol = "AMZ",
+            Currency = "GBP"
         };
         
         var testHarness = new TestHarness(mockFeatureFlags);
@@ -104,7 +107,7 @@ public class SetStockPriceTests
         var setStockPriceEndpoint = testHarness.GetService<Function>();
 
         // Act
-        var result = await setStockPriceEndpoint.SetStockPrice(testRequest, A.Fake<ILambdaContext>());
+        var result = await setStockPriceEndpoint.SetStockPrice(testRequest);
         
         // Assert
         result.StatusCode.Should().Be(200);
@@ -122,7 +125,8 @@ public class SetStockPriceTests
         var testRequest = new SetStockPriceRequest()
         {
             NewPrice = 0,
-            StockSymbol = "AMZ"
+            StockSymbol = "AMZ",
+            Currency = "GBP"
         };
         
         var testHarness = new TestHarness(mockFeatureFlags);
@@ -130,7 +134,7 @@ public class SetStockPriceTests
         var setStockPriceEndpoint = testHarness.GetService<Function>();
 
         // Act
-        var result = await setStockPriceEndpoint.SetStockPrice(testRequest, A.Fake<ILambdaContext>());
+        var result = await setStockPriceEndpoint.SetStockPrice(testRequest);
         
         // Assert
         result.StatusCode.Should().Be(400);

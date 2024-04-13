@@ -19,12 +19,17 @@
             "action": "EQUALS",
             "key": "stock_symbol",
             "value": "456"
+          },
+          {
+            "action": "EQUALS",
+            "key": "stock_symbol",
+            "value": "GOO"
           }
         ]
       }
     }
   },
   "ten_percent_share_increase": {
-    "default": false
+    "default": true
   }
 }

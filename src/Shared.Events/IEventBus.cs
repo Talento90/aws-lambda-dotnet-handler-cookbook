@@ -1,7 +1,7 @@
-﻿namespace SharedKernel.Events;
+﻿namespace Shared.Events;
 
 public interface IEventBus
 {
-    Task Publish<T>(T evt)
-        where T : Event;
+    Task Publish(Event evt);
+    Task Publish(List<Event> evts);
 }

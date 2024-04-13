@@ -1,26 +1,20 @@
-﻿using Amazon.CDK.AWS.IAM;
-using Amazon.CDK.AWS.SNS.Subscriptions;
-using Amazon.CDK.AWS.SQS;
-
-namespace Cdk.SharedConstructs;
-
-using System;
-using System.Collections.Generic;
-
-using Amazon.CDK.AWS.Events;
-using Amazon.CDK.AWS.Events.Targets;
+﻿using Amazon.CDK.AWS.Events;
+using Amazon.CDK.AWS.IAM;
 using Amazon.CDK.AWS.Lambda;
 using Amazon.CDK.AWS.Lambda.EventSources;
 using Amazon.CDK.AWS.SNS;
-
+using Amazon.CDK.AWS.SNS.Subscriptions;
+using Amazon.CDK.AWS.SQS;
 using Constructs;
+
+namespace SharedConstructs;
 
 public class PublishSubscribeChannel : Construct
 {
     private readonly string _id;
-    public ITopic Topic { get; private set; }
+    public ITopic? Topic { get; private set; }
     
-    public IEventBus EventBus { get; private set; }
+    public IEventBus? EventBus { get; private set; }
 
     private readonly List<IFunction> lambdaSubscribers;
 

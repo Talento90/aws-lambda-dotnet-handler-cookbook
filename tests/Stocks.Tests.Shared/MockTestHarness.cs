@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using FakeItEasy;
-using SharedKernel.Events;
+using Shared.Events;
 using SharedKernel.Features;
 using StockTrader.Core.StockAggregate;
 using StockTrader.Infrastructure;
@@ -15,7 +15,7 @@ public class MockTestHarness
     public IStockRepository MockStockRepository { get; private set; }
     public IEventBus MockEventBus { get; private set; }
 
-    public MockTestHarness(IFeatureFlags featureFlags, bool useMocks = false)
+    public MockTestHarness(IFeatureFlags featureFlags)
     {
         var serviceCollection = new ServiceCollection();
         

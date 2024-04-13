@@ -1,7 +1,7 @@
-﻿namespace Cdk.SharedConstructs;
-
-using Amazon.CDK.AWS.DynamoDB;
+﻿using Amazon.CDK.AWS.DynamoDB;
 using Amazon.CDK.AWS.Pipes;
+
+namespace SharedConstructs;
 
 public class DynamoDbSource : ChannelSource
 {
@@ -21,7 +21,7 @@ public class DynamoDbSource : ChannelSource
     }
 
     /// <inheritdoc />
-    public override string SourceArn => this.Table.TableStreamArn;
+    public override string SourceArn => this.Table.TableStreamArn ?? "";
 
     /// <inheritdoc />
     public override CfnPipe.PipeSourceParametersProperty SourceParameters { get; }

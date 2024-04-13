@@ -1,8 +1,7 @@
-﻿namespace SharedKernel.Events;
-
-using System.Text.Json.Serialization;
-
+﻿using System.Text.Json.Serialization;
 using AWS.Lambda.Powertools.Tracing;
+
+namespace Shared.Events;
 
 public record Metadata
 {
@@ -30,14 +29,14 @@ public record Metadata
     public string EventVersion { get; set; }
 }
 
-public class EventWrapper<T> where T : Event
+public class EventWrapper
 {
     [JsonConstructor]
     public EventWrapper()
     {
     }
     
-    public EventWrapper(T evt)
+    public EventWrapper(Event evt)
     {
         this.Data = evt;
         this.Metadata = new Metadata(
@@ -46,5 +45,5 @@ public class EventWrapper<T> where T : Event
     }
     public Metadata Metadata { get; set; }
     
-    public T Data { get; set; }
+    public Event Data { get; set; }
 }

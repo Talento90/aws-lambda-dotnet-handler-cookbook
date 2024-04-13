@@ -28,15 +28,13 @@ public static class Program
         _getStockEndpoints = new GetStockEndpoints(stockRepository);
         
         Func<APIGatewayProxyRequest, ILambdaContext, Task<APIGatewayProxyResponse>> handler = FunctionHandler;
-        await LambdaBootstrapBuilder.Create(handler, new DefaultLambdaJsonSerializer())
+        await LambdaBootstrapBuilder.Create(handler, new SourceGeneratorLambdaJsonSerializer<CustomSerializationContext>())
             .Build()
             .RunAsync();
     }
 
     public static async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
     {
-        Logger.LogInformation($"Resource: {request.Resource}");
-        
         APIGatewayProxyResponse response = null;
         
         switch (request.Resource)

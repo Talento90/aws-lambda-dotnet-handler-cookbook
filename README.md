@@ -99,11 +99,11 @@ dotnet run
 ```
 
 ```
-aws cognito-idp admin-create-user --user-pool-id us-east-1_a94TspUGB --username john@example.com --user-attributes Name="given_name",Value="john" Name="family_name",Value="smith"
+aws cognito-idp admin-create-user --user-pool-id <USER_POOL_ID> --username john@example.com --user-attributes Name="given_name",Value="john" Name="family_name",Value="smith"
 ```
 
 ```
-aws cognito-idp admin-set-user-password --user-pool-id us-east-1_a94TspUGB --username john@example.com --password "<PASSWORD>" --permanent
+aws cognito-idp admin-set-user-password --user-pool-id <USER_POOL_ID> --username john@example.com --password "<PASSWORD>" --permanent
 ```
 
 ```
@@ -136,6 +136,12 @@ When running the functional tests locally, you also need to set the `TEMPORARY_P
 
 For more information on testing, check out this [YouTube Video on testing and debugging your Lambda functions locally](https://youtu.be/962ba6mgQXI).
 
+## Performance
+
+[AWS Lambda PowerTuning](https://docs.aws.amazon.com/lambda/latest/operatorguide/profile-functions.html) is used as a data driven way to set the memory allocation. For example, below is an output from Lambda PowerTuning for the .NET 8 AOT compile ASP.NET example.
+
+![](./assets/net-8-aot-performance.png)
+
 ## Roadmap
 
 - [] Add examples of different Lambda event sources
@@ -146,6 +152,10 @@ For more information on testing, check out this [YouTube Video on testing and de
     - [] S3
     - [] Kinesis
 
+## Resources
+
+- [Upgrading to the .NET 8 Managed Runtime](https://youtu.be/ZKkZuzGfijs)
+- [Test & Debug Your Lambda Functions Locally](https://youtu.be/962ba6mgQXI)
 
 ## Code Contributions
 Code contributions are welcomed. Read this [guide.](https://github.com/jeastham1993/aws-lambda-dotnet-handler-cookbook/blob/main/CONTRIBUTING.md)

@@ -1,14 +1,14 @@
-﻿namespace Cdk.SharedConstructs;
-
-using Amazon.CDK.AWS.APIGateway;
+﻿using Amazon.CDK.AWS.APIGateway;
 using Amazon.CDK.AWS.Cognito;
 using Amazon.CDK.AWS.Lambda;
-
 using Constructs;
+using HttpMethod = Amazon.CDK.AWS.Lambda.HttpMethod;
+
+namespace SharedConstructs;
 
 public class AuthorizedApi : RestApi
 {
-   public CognitoUserPoolsAuthorizer Authorizer { get; private set; }
+   public CognitoUserPoolsAuthorizer? Authorizer { get; private set; }
    
    public AuthorizedApi(
       Construct scope,
@@ -64,7 +64,7 @@ public class AuthorizedApi : RestApi
       }
 
       lastResource?.AddMethod(
-         method.ToString().ToUpper(),
+         method == HttpMethod.ALL ? "ANY" : method.ToString().ToUpper(),
          new LambdaIntegration(function),
          new MethodOptions
          {

@@ -5,6 +5,8 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using AWS.Lambda.Powertools.Logging;
 using AWS.Lambda.Powertools.Tracing;
+using Shared.Events;
+using StockTrader.Core.StockAggregate;
 using StockTrader.Core.StockAggregate.Handlers;
 using StockTrader.Infrastructure;
 
@@ -22,7 +24,7 @@ public class Function
     [LambdaFunction]
     [RestApi(LambdaHttpMethod.Put, "/price")]
     [Tracing]
-    public async Task<APIGatewayProxyResponse> SetStockPrice([FromBody] SetStockPriceRequest request, ILambdaContext context)
+    public async Task<APIGatewayProxyResponse> SetStockPrice([FromBody] SetStockPriceRequest request)
     {
         try
         {

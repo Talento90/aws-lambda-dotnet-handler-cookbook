@@ -6,7 +6,6 @@ using Amazon.CDK.AWS.SNS;
 using Amazon.CDK.AWS.SQS;
 using Amazon.CDK.AWS.SSM;
 using Amazon.CDK.AWS.StepFunctions;
-using Cdk.SharedConstructs;
 using Constructs;
 using SharedConstructs;
 
@@ -52,14 +51,8 @@ public class NotificationServiceStack : Stack
                 .QueryForStockNotificationRequests(this, stockNotificationTable)
                 .Next(new Map(this, "IterateResults", new MapProps
                 {
-                    ItemsPath = "$.Items"
-                }).Iterator(new Pass(this, "GatherNotificationCustomers", new PassProps
-                {
-                    Parameters = new Dictionary<string, object>(1)
-                    {
-                        { "Customer", JsonPath.StringAt("$.PK.S") }
-                    }
-                }))));
+                    ItemsPath = "$.queryResults.Items"
+                }).Iterator(WorkflowStep.SendNotification(this, stockNotificationTable))));
 
         stockNotificationTable.GrantReadData(stockPriceNotificationWorkflow.Workflow);
 
